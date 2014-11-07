@@ -20,7 +20,7 @@ class LogStash::Filters::Range < LogStash::Filters::Base
 
   # An array of field, min, max, action tuples.
   # Example:
-  #
+  # [source,ruby]
   #     filter {
   #       %PLUGIN% {
   #         ranges => [ "message", 0, 10, "tag:short",
@@ -36,7 +36,7 @@ class LogStash::Filters::Range < LogStash::Filters::Base
   #     }
   #
   # Supported actions are drop tag or field with specified value.
-  # Added tag names and field names and field values can have %{dynamic} values.
+  # Added tag names and field names and field values can have `%{dynamic}` values.
   #
   # TODO(piavlo): The action syntax is ugly at the moment due to logstash grammar limitations - arrays grammar should support
   # TODO(piavlo): simple not nested hashses as values in addition to numaric and string values to prettify the syntax.
