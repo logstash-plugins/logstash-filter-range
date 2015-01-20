@@ -16,7 +16,6 @@ require "logstash/namespace"
 
 class LogStash::Filters::Range < LogStash::Filters::Base
   config_name "range"
-  milestone 1
 
   # An array of field, min, max, action tuples.
   # Example:
