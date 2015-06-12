@@ -15,6 +15,8 @@ require "logstash/namespace"
 # or for finding anomaly values in fields or too big events that should be dropped.
 
 class LogStash::Filters::Range < LogStash::Filters::Base
+  # TODO(piavlo): The action syntax is ugly at the moment due to logstash grammar limitations - arrays grammar should support
+  # TODO(piavlo): simple not nested hashses as values in addition to numaric and string values to prettify the syntax.
   config_name "range"
 
   # An array of field, min, max, action tuples.
@@ -37,8 +39,6 @@ class LogStash::Filters::Range < LogStash::Filters::Base
   # Supported actions are drop tag or field with specified value.
   # Added tag names and field names and field values can have `%{dynamic}` values.
   #
-  # TODO(piavlo): The action syntax is ugly at the moment due to logstash grammar limitations - arrays grammar should support
-  # TODO(piavlo): simple not nested hashses as values in addition to numaric and string values to prettify the syntax.
   config :ranges, :validate => :array, :default => []
 
   # Negate the range match logic, events should be outsize of the specified range to match.
