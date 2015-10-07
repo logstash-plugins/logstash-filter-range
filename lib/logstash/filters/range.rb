@@ -91,7 +91,7 @@ class LogStash::Filters::Range < LogStash::Filters::Base
  
   public
   def filter(event)
-    return unless filter?(event)
+    
 
     @range_tuples.each_key do |fieldname|
       if event.include?(fieldname)
