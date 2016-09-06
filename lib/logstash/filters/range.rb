@@ -96,7 +96,7 @@ class LogStash::Filters::Range < LogStash::Filters::Base
         @range_tuples[fieldname].each do |range|
           matched = false
         
-          field = event[fieldname]
+          field = event.get(fieldname)
           case field
           when Integer
             matched = field.between?(range[:min], range[:max])
@@ -124,11 +124,11 @@ class LogStash::Filters::Range < LogStash::Filters::Base
             @logger.debug? and @logger.debug("#{self.class.name}: adding field due to range match",
                                               :event => event, :field => range[:action][:field], :value => range[:action][:value])
             new_field = event.sprintf(range[:action][:field])
-            if event[new_field]
-              event[new_field] = [event[new_field]] if !event[new_field].is_a?(Array)
-              event[new_field] << event.sprintf(range[:action][:value])
+            if event.get(new_field)
+              event.set(new_field, [event.get(new_field)]) if !event.get(new_field).is_a?(Array)
+              event.set(new_field, event.get(new_field) << event.sprintf(range[:action][:value]))
             else
-              event[new_field] = range[:action][:value].is_a?(String) ? event.sprintf(range[:action][:value]) : range[:action][:value]
+              event.set(new_field, range[:action][:value].is_a?(String) ? event.sprintf(range[:action][:value]) : range[:action][:value])
             end
           end
         end
