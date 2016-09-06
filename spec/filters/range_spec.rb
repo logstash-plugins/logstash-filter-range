@@ -15,8 +15,8 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("duration" => 50) do
-      insist { subject["tags"] }.include?("cool")
-      reject { subject["tags"] }.include?("boring")
+      insist { subject.get("tags") }.include?("cool")
+      reject { subject.get("tags") }.include?("boring")
     end
   end
 
@@ -31,8 +31,8 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("duration" => 50.0) do
-      insist { subject["tags"] }.include?("cool")
-      reject { subject["tags"] }.include?("boring")
+      insist { subject.get("tags") }.include?("cool")
+      reject { subject.get("tags") }.include?("boring")
     end
   end
 
@@ -47,8 +47,8 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("length" => "123456789") do
-      insist { subject["tags"] }.include?("cool")
-      reject { subject["tags"] }.include?("boring")
+      insist { subject.get("tags") }.include?("cool")
+      reject { subject.get("tags") }.include?("boring")
     end
   end
 
@@ -64,8 +64,8 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("length" => "123456789") do
-      reject { subject["tags"] }.include?("cool")
-      insist { subject["tags"] }.include?("boring")
+      reject { subject.get("tags") }.include?("cool")
+      insist { subject.get("tags") }.include?("boring")
     end
   end
 
@@ -95,7 +95,7 @@ describe LogStash::Filters::Range do
 
     sample("duration" => 50) do
       insist { subject }.include?("cool")
-      insist { subject["cool"] } == "foo"
+      insist { subject.get("cool") } == "foo"
       reject { subject }.include?("boring")
     end
   end
@@ -112,7 +112,7 @@ describe LogStash::Filters::Range do
 
     sample("duration" => 50) do
       insist { subject }.include?("cool")
-      insist { subject["cool"] } == 666
+      insist { subject.get("cool") } == 666
       reject { subject }.include?("boring")
     end
   end
@@ -129,7 +129,7 @@ describe LogStash::Filters::Range do
 
     sample("duration" => 50) do
       insist { subject }.include?("cool")
-      insist { subject["cool"] } == 3.14
+      insist { subject.get("cool") } == 3.14
       reject { subject }.include?("boring")
     end
   end
@@ -145,8 +145,8 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("duration" => 50, "dynamic" => "and") do
-      insist { subject["tags"] }.include?("cool_and_dynamic")
-      reject { subject["tags"] }.include?("boring_and_dynamic")
+      insist { subject.get("tags") }.include?("cool_and_dynamic")
+      reject { subject.get("tags") }.include?("boring_and_dynamic")
     end
   end
 
@@ -162,7 +162,7 @@ describe LogStash::Filters::Range do
 
     sample("duration" => 50, "dynamic" => "and") do
       insist { subject }.include?("cool_and_dynamic")
-      insist { subject["cool_and_dynamic"] } == "foo_and_bar"
+      insist { subject.get("cool_and_dynamic") } == "foo_and_bar"
       reject { subject }.include?("boring_and_dynamic")
     end
   end
