@@ -1,4 +1,5 @@
 require "logstash/devutils/rspec/spec_helper"
+require "insist"
 require "logstash/filters/range"
 
 describe LogStash::Filters::Range do
