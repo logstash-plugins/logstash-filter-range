@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
 
   s.name            = 'logstash-filter-range'
-  s.version         = '3.0.3'
+  s.version         = ::File.read('version').split("\n").first
   s.platform        = 'java'
   s.licenses        = ['Apache License (2.0)']
   s.summary         = "Checks that specified fields stay within given size or length limits"
