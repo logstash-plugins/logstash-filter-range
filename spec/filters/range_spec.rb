@@ -1,9 +1,7 @@
 require "logstash/devutils/rspec/spec_helper"
-require "insist"
 require "logstash/filters/range"
 
 describe LogStash::Filters::Range do
-  
 
   describe "range match integer field on tag action" do
     config <<-CONFIG
@@ -16,8 +14,8 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("duration" => 50) do
-      insist { subject.get("tags") }.include?("cool")
-      reject { subject.get("tags") }.include?("boring")
+      expect(subject.get("tags")).to include("cool")
+      expect(subject.get("tags")).not_to include("boring")
     end
   end
 
@@ -32,8 +30,8 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("duration" => 50.0) do
-      insist { subject.get("tags") }.include?("cool")
-      reject { subject.get("tags") }.include?("boring")
+      expect(subject.get("tags")).to include("cool")
+      expect(subject.get("tags")).not_to include("boring")
     end
   end
 
@@ -48,8 +46,8 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("length" => "123456789") do
-      insist { subject.get("tags") }.include?("cool")
-      reject { subject.get("tags") }.include?("boring")
+      expect(subject.get("tags")).to include("cool")
+      expect(subject.get("tags")).not_to include("boring")
     end
   end
 
@@ -65,8 +63,8 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("length" => "123456789") do
-      reject { subject.get("tags") }.include?("cool")
-      insist { subject.get("tags") }.include?("boring")
+      expect(subject.get("tags")).not_to include("cool")
+      expect(subject.get("tags")).to include("boring")
     end
   end
 
@@ -80,7 +78,7 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("length" => "123456789") do
-      insist { subject }.nil?
+      expect(subject).to be_nil
     end
   end
 
@@ -95,9 +93,9 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("duration" => 50) do
-      insist { subject }.include?("cool")
-      insist { subject.get("cool") } == "foo"
-      reject { subject }.include?("boring")
+      expect(subject).to include("cool")
+      expect(subject.get("cool")).to eq("foo")
+      expect(subject).not_to include("boring")
     end
   end
 
@@ -112,9 +110,9 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("duration" => 50) do
-      insist { subject }.include?("cool")
-      insist { subject.get("cool") } == 666
-      reject { subject }.include?("boring")
+      expect(subject).to include("cool")
+      expect(subject.get("cool")).to eq(666)
+      expect(subject).not_to include("boring")
     end
   end
 
@@ -129,9 +127,9 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("duration" => 50) do
-      insist { subject }.include?("cool")
-      insist { subject.get("cool") } == 3.14
-      reject { subject }.include?("boring")
+      expect(subject).to include("cool")
+      expect(subject.get("cool")).to eq(3.14)
+      expect(subject).not_to include("boring")
     end
   end
 
@@ -146,8 +144,8 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("duration" => 50, "dynamic" => "and") do
-      insist { subject.get("tags") }.include?("cool_and_dynamic")
-      reject { subject.get("tags") }.include?("boring_and_dynamic")
+      expect(subject.get("tags")).to include("cool_and_dynamic")
+      expect(subject.get("tags")).not_to include("boring_and_dynamic")
     end
   end
 
@@ -162,9 +160,9 @@ describe LogStash::Filters::Range do
     CONFIG
 
     sample("duration" => 50, "dynamic" => "and") do
-      insist { subject }.include?("cool_and_dynamic")
-      insist { subject.get("cool_and_dynamic") } == "foo_and_bar"
-      reject { subject }.include?("boring_and_dynamic")
+      expect(subject).to include("cool_and_dynamic")
+      expect(subject.get("cool_and_dynamic")).to eq("foo_and_bar")
+      expect(subject).not_to include("boring_and_dynamic")
     end
   end
 end
